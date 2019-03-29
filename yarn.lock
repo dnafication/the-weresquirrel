@@ -881,6 +881,11 @@
   resolved "https://registry.yarnpkg.com/@types/tmp/-/tmp-0.0.32.tgz#0d3cb31022f8427ea58c008af32b80da126ca4e3"
   integrity sha1-DTyzECL4Qn6ljACK8yuA2hJspOM=
 
+"@wapps/gatsby-plugin-fonts@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@wapps/gatsby-plugin-fonts/-/gatsby-plugin-fonts-1.0.2.tgz#4f9aab9b7b18be2b267d7d668fd6fc17fb89ff6c"
+  integrity sha512-XxSjotHBJRT6JLLLonNxhfSbdeik3iCZirPqGoaFMyV2mQM0QJx+0m9AG7xT/78m6gBg3D2kpk/VEb+GG4N7Rw==
+
 "@webassemblyjs/ast@1.7.11":
   version "1.7.11"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.7.11.tgz#b988582cafbb2b095e8b556526f30c90d057cace"
