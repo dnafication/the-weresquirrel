@@ -10,7 +10,7 @@ Taken from [Chapter 4, Eloquent Javascript.](https://eloquentjavascript.net/04_d
 >
 > Switching to a more scientific approach, Jacques has started keeping a daily log of everything he does on a given day and whether he changed form. With this data he hopes to narrow down the conditions that trigger the transformations.
 
-This is the journal app for Jacques.
+This is the journal app for Jacques. This app uses Gatsbyjs and its default starter template.
 
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
@@ -19,7 +19,6 @@ This is the journal app for Jacques.
   </a>
 </p>
 
-Uses gatsbyjs default starter.
 
 ## 🚀 Quick start
 
