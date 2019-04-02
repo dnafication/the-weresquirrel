@@ -3,50 +3,24 @@ import { Link } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import JournalForm from "../components/journal-form"
 
-import styles from "../components/journal-form.module.css"
+import styles from "../components/journal.module.css"
 
-// create the table for a specific event
-// from the events
-function tableFor(event, journal) {
-  let table = [0, 0, 0, 0]
-  for (let i = 0; i < journal.length; i++) {
-    let entry = journal[i],
-      index = 0
-    if (entry.events.includes(event)) index += 1
-    if (entry.squirrel) index += 2
-    table[index] += 1
+import { tableFor, journalEvents, phi } from "../utils/utils"
+
+//trim function
+if (typeof String.prototype.trim === "undefined") {
+  String.prototype.trim = function() {
+    return String(this).replace(/^\s+|\s+$/g, "")
   }
-  return table
-}
-
-// distinct events
-function journalEvents(journal) {
-  let events = []
-  for (let entry of journal) {
-    for (let event of entry.events) {
-      if (!events.includes(event)) {
-        events.push(event)
-      }
-    }
-  }
-  return events
-}
-
-// Calculate phi
-function phi([n00, n01, n10, n11]) {
-  return (
-    (n11 * n00 - n10 * n01) /
-    Math.sqrt((n10 + n11) * (n00 + n01) * (n01 + n11) * (n00 + n10))
-  )
 }
 
 const Journal = () => {
   const [inputText, setInputText] = useState("")
-  const [checked, setChecked] = useState(false)
-  const [events, setEvents] = useState([])
-  const [rabbit, setRabbit] = useState(false)
+  const [currentEntry, setCurrentEntry] = useState({
+    events: [],
+    rabbit: false,
+  })
   const [journal, setJournal] = useState([])
   const [suggestion, setSuggestion] = useState(new Set())
 
@@ -57,15 +31,44 @@ const Journal = () => {
   //   }
   // }, [])
 
+  useEffect(() => {
+    console.log("hi here")
+    console.log("journal", journal)
+    return () => {
+      console.log("ho there")
+    }
+  }, [journal])
+
+  const { events, rabbit } = currentEntry // dont modify this variables directly
+
   const handleKeyPress = e => {
     if (e.key === "Enter") {
-      let newEvents = [...events]
-      newEvents.push(inputText)
-      console.log(newEvents)
-      console.log(inputText)
-      setEvents(newEvents)
+      setCurrentEntry({
+        events: [...currentEntry.events, inputText.trim()],
+        rabbit: currentEntry.rabbit,
+      })
       setInputText("")
     }
+  }
+
+  const didITurn = value => {
+    setCurrentEntry({
+      ...currentEntry,
+      rabbit: value,
+    })
+  }
+
+  const submitEntry = () => {
+    setJournal([...journal, currentEntry])
+    //reset the form
+    setCurrentEntry({ events: [], rabbit: false })
+  }
+
+  const removeEvent = event => {
+    setCurrentEntry({
+      events: currentEntry.events.filter(i => i !== event),
+      rabbit: currentEntry.rabbit,
+    })
   }
 
   return (
@@ -81,9 +84,9 @@ const Journal = () => {
         ]}
       />
 
-      <div>
-        <div className={styles.container}>
-          <div className={styles.events}>
+      <div className={styles.container}>
+        <div className={styles.events}>
+          <div>
             <input
               autoFocus
               placeholder="Enter event"
@@ -93,32 +96,50 @@ const Journal = () => {
               onKeyUp={handleKeyPress}
             />
           </div>
-          <div className={styles.submit}>
-            {events && (
+          <div>
+            {events.length > 0 && (
               <ul>
                 {events.map((event, i) => (
-                  <li key={i}>{event}</li>
+                  <li key={i}>
+                    {event}
+                    <button
+                      className={styles.removeEvent}
+                      onClick={() => removeEvent(event)}
+                    >
+                      x
+                    </button>{" "}
+                  </li>
                 ))}
               </ul>
             )}
-
+          </div>
+        </div>
+        <div className={styles.submit}>
+          <div style={{ textAlign: "center" }}>
+            <p style={{ marginBottom: `2px` }}>Did I turn in to a rabbit?</p>
             <label className={styles.switch}>
               <input
                 type="checkbox"
-                checked={checked}
-                onChange={() => setChecked(!checked)}
+                checked={rabbit}
+                onChange={() => didITurn(!rabbit)}
               />
-              <span className={styles.slider}>Did I turn?</span>
+              <span className={styles.slider} />
             </label>
-
-            <button>Submit Entry</button>
           </div>
-          <div />
+          <div>
+            <button onClick={submitEntry}>Submit Entry</button>
+          </div>
+        </div>
+        <div className={styles.phiContainer}>
+          Watch this space for phi calcuations.
+        </div>
+        <div className={styles.tableContainer}>
+          And watch this space for table data
         </div>
       </div>
 
       <Link style={{ textDecoration: `none`, color: `#b3008b` }} to="/">
-        Go back to the homepage
+        ⬅️ Back to the homepage
       </Link>
     </Layout>
   )
