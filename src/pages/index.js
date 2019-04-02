@@ -22,18 +22,18 @@ const IndexPage = () => (
       himself transforming into a small furry rodent with a bushy tail.
     </p>
 
+    <div
+      style={{
+        maxWidth: `300px`,
+        width: `300px`,
+        marginLeft: `auto`,
+        marginRight: `auto`,
+        marginBottom: `26px`,
+      }}
+    >
+      <Image />
+    </div>
     <p>
-      <div
-        style={{
-          maxWidth: `300px`,
-          width: `300px`,
-          float: `left`,
-          marginRight: `1.45em`,
-          marginBottom: `1.45rem`,
-        }}
-      >
-        <Image />
-      </div>
       On one hand, Jacques is quite glad that he doesn’t have classic
       lycanthropy. Turning into a squirrel does cause fewer problems than
       turning into a wolf. Instead of having to worry about accidentally eating
@@ -74,7 +74,7 @@ const IndexPage = () => (
       correlate that data to identify the cause.
     </p>
     <Link to="/journal" style={{ textDecoration: `none`, color: `#b3008b` }}>
-      Lets go to the app
+      Lets go to the app ➡️
     </Link>
   </Layout>
 )
