@@ -36,7 +36,7 @@ const Journal = () => {
   // }, [])
 
   useEffect(() => {
-    console.log("journal", journal)
+    console.log("state of journal: ", journal)
     // suggestion
     // setSuggestion(journalEvents(journal))
 
@@ -58,8 +58,8 @@ const Journal = () => {
   const { events, squirrel } = currentEntry // dont modify this variables directly
 
   const loadDummyData = () => {
-    // setJournal(dummyData())
-    setJournal(JOURNAL)
+    setJournal(dummyData())
+    // setJournal(JOURNAL)
   }
 
   const handleKeyPress = e => {
