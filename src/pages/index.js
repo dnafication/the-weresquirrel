@@ -24,8 +24,8 @@ const IndexPage = () => (
 
     <div
       style={{
-        maxWidth: `300px`,
-        width: `300px`,
+        maxWidth: `400px`,
+        width: `400px`,
         marginLeft: `auto`,
         marginRight: `auto`,
         marginBottom: `26px`,
@@ -74,7 +74,11 @@ const IndexPage = () => (
       correlate that data to identify the cause.
     </p>
     <Link to="/journal" style={{ textDecoration: `none`, color: `#b3008b` }}>
-      Lets go to the app ➡️
+      Lets go to the app{" "}
+      <span role="img" aria-label="arrow right">
+        ➡
+      </span>
+      ️
     </Link>
   </Layout>
 )
