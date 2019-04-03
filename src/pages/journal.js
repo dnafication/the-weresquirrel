@@ -8,6 +8,8 @@ import styles from "../components/journal.module.css"
 
 import { tableFor, journalEvents, phi, uuidv4, round } from "../utils/utils"
 
+import { dummyData } from "../utils/data"
+
 //trim function
 if (typeof String.prototype.trim === "undefined") {
   String.prototype.trim = function() {
@@ -34,7 +36,6 @@ const Journal = () => {
   // }, [])
 
   useEffect(() => {
-    console.log("hi there")
     console.log("journal", journal)
     // get suggestion
     setSuggestion(journalEvents(journal))
@@ -46,7 +47,11 @@ const Journal = () => {
       tempEventPhi.push({ event, phi: p })
     })
 
-    setEventPhi(tempEventPhi)
+    setEventPhi(
+      tempEventPhi.sort(function(a, b) {
+        return b.phi - a.phi
+      })
+    )
 
     return () => {
       console.log("ho there")
@@ -54,6 +59,10 @@ const Journal = () => {
   }, [journal])
 
   const { events, squirrel } = currentEntry // dont modify this variables directly
+
+  const loadDummyData = () => {
+    setJournal(dummyData())
+  }
 
   const handleKeyPress = e => {
     if (e.key === "Enter") {
@@ -151,18 +160,25 @@ const Journal = () => {
           </div>
         </div>
         <div className={styles.phiContainer}>
-          {journal.length >= 1
-            ? journal.length < 5
-              ? "You need to populate more data to start viewing the phi calculations"
-              : eventPhi.map(({ event, phi }) => (
-                  <div key={event}>
-                    {event}{" "}
-                    {isNaN(phi)
-                      ? "Cant calculate at this point"
-                      : round(phi, 2)}
-                  </div>
-                ))
-            : "Submit entries to begin."}
+          {journal.length >= 1 ? (
+            journal.length < 5 ? (
+              <p>Need more data to do the Φ (phi) calculations</p>
+            ) : (
+              eventPhi.map(({ event, phi }, i) => {
+                // display only 8 items
+                if (i < 8) {
+                  return (
+                    <div key={event} className={styles.eventPhi}>
+                      <p>{event}</p>
+                      <span>{isNaN(phi) ? "..." : round(phi, 2)}</span>
+                    </div>
+                  )
+                }
+              })
+            )
+          ) : (
+            <p>Enter events and submit entries to see the Φ values.</p>
+          )}
         </div>
 
         <div className={styles.tableContainer}>
@@ -202,6 +218,15 @@ const Journal = () => {
         </span>{" "}
         Back to the homepage
       </Link>
+      <button
+        onClick={loadDummyData}
+        style={{
+          float: `right`,
+          lineHeight: `2px`,
+        }}
+      >
+        load dummy data
+      </button>
     </Layout>
   )
 }
