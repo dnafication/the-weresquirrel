@@ -23,17 +23,18 @@
 
 .events ul {
   font-family: Inconsolata, Courier, monospace;
-  margin: 1em 1.5em 2em 1.5em;
+  /* margin: 1em 1.5em 2em 1.5em; */
   padding: 5px;
+  max-width: 300px;
 }
 
 .events ul::before {
-  content: "{ ";
+  content: "[ ";
   font-size: 1em;
 }
 
 .events ul::after {
-  content: " }";
+  content: " ]";
   font-size: 1em;
 }
 
@@ -41,6 +42,7 @@
   display: inline-block;
   margin-right: 5px;
   padding: 2px 5px;
+  max-width: 300px;
   /* padding-right: 3px; */
   background-color: bisque;
   line-height: 100%;
@@ -63,12 +65,24 @@
   flex-direction: column;
 }
 
-.removeEvent {
+.smallButton {
   display: inline;
   text-decoration: none;
   font-family: "Courier New", Courier, monospace;
   padding: 0 5px;
   margin: 0 0 0 4px;
+}
+
+.phiContainer {
+  flex-basis: 100%;
+  max-width: 660px;
+  margin: 2em 0;
+}
+
+.tableContainer {
+  flex-basis: 100%;
+  max-width: 660px;
+  margin: 2em 0;
 }
 
 button {
