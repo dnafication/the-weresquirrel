@@ -35,14 +35,19 @@ const Layout = ({ children }) => (
             backgroundColor: `#f3df49`,
           }}
         >
-          <main>{children}</main>
+          <main style={{ textAlign: `justify`, marginBottom: `4em` }}>
+            {children}
+          </main>
         </div>
         <footer
           style={{
+            position: `fixed`,
+            bottom: 0,
             marginTop: `4em`,
-            padding: `2em`,
+            padding: `1.5em`,
             background: `#2e2e2c`,
             color: `#fff`,
+            width: `100%`,
             fontSize: `0.8em`,
             textAlign: `center`,
           }}

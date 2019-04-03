@@ -8,7 +8,7 @@ import styles from "../components/journal.module.css"
 
 import { tableFor, journalEvents, phi, uuidv4, round } from "../utils/utils"
 
-import { dummyData } from "../utils/data"
+import { dummyData, JOURNAL } from "../utils/data"
 
 //trim function
 if (typeof String.prototype.trim === "undefined") {
@@ -25,7 +25,7 @@ const Journal = () => {
     squirrel: false,
   })
   const [journal, setJournal] = useState([])
-  const [suggestion, setSuggestion] = useState(new Set())
+  // const [suggestion, setSuggestion] = useState(new Set())
   const [eventPhi, setEventPhi] = useState([])
 
   // useEffect(() => {
@@ -37,8 +37,8 @@ const Journal = () => {
 
   useEffect(() => {
     console.log("journal", journal)
-    // get suggestion
-    setSuggestion(journalEvents(journal))
+    // suggestion
+    // setSuggestion(journalEvents(journal))
 
     // calculate and push phi values for events
     let tempEventPhi = []
@@ -52,16 +52,14 @@ const Journal = () => {
         return b.phi - a.phi
       })
     )
-
-    return () => {
-      console.log("ho there")
-    }
+    return () => {}
   }, [journal])
 
   const { events, squirrel } = currentEntry // dont modify this variables directly
 
   const loadDummyData = () => {
-    setJournal(dummyData())
+    // setJournal(dummyData())
+    setJournal(JOURNAL)
   }
 
   const handleKeyPress = e => {
@@ -103,7 +101,7 @@ const Journal = () => {
   return (
     <Layout>
       <SEO
-        title="The Journal"
+        title="The Journal app"
         keywords={[
           `gatsby`,
           `application`,
@@ -160,6 +158,28 @@ const Journal = () => {
           </div>
         </div>
         <div className={styles.phiContainer}>
+          {5 < journal.length >= 1 && (
+            <div style={{ flexBasis: 600, textAlign: "justify" }}>
+              <h2 style={{ textAlign: "center" }}>Φ phi coefficient</h2>
+              <p>
+                To compute the measure of correlation between two Boolean
+                variables, we can use the phi coefficient (ϕ).
+              </p>
+              <p>
+                Correlation is a measure of dependence between statistical
+                variables. A statistical variable is not quite the same as a
+                programming variable. In statistics you typically have a set of
+                measurements, and each variable is measured for every
+                measurement. Correlation between variables is usually expressed
+                as a value that ranges from -1 to 1. Zero correlation means the
+                variables are not related. A correlation of one indicates that
+                the two are perfectly related—if you know one, you also know the
+                other. Negative one also means that the variables are perfectly
+                related but that they are opposites—when one is true, the other
+                is false.
+              </p>
+            </div>
+          )}
           {journal.length >= 1 ? (
             journal.length < 5 ? (
               <p>Need more data to do the Φ (phi) calculations</p>
@@ -183,7 +203,7 @@ const Journal = () => {
 
         <div className={styles.tableContainer}>
           {journal.length > 0 && (
-            <table>
+            <table style={{ overflowX: `auto` }}>
               <thead>
                 <tr>
                   <th>Events</th>
@@ -192,8 +212,8 @@ const Journal = () => {
                 </tr>
               </thead>
               <tbody>
-                {journal.map(entry => (
-                  <tr key={entry.id}>
+                {journal.map((entry, i) => (
+                  <tr key={i}>
                     <td>{JSON.stringify(entry.events)}</td>
                     <td>{JSON.stringify(entry.squirrel)}</td>
                     <td>

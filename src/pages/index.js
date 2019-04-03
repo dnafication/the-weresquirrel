@@ -24,8 +24,8 @@ const IndexPage = () => (
 
     <div
       style={{
-        maxWidth: `400px`,
-        width: `400px`,
+        maxWidth: `320px`,
+        width: `320px`,
         marginLeft: `auto`,
         marginRight: `auto`,
         marginBottom: `26px`,
@@ -73,7 +73,10 @@ const IndexPage = () => (
       We will build him a journal which allows him to track his activities and
       correlate that data to identify the cause.
     </p>
-    <Link to="/journal" style={{ textDecoration: `none`, color: `#b3008b` }}>
+    <Link
+      to="/journal"
+      style={{ textDecoration: `none`, color: `#b3008b`, marginBottom: `4em` }}
+    >
       Lets go to the app{" "}
       <span role="img" aria-label="arrow right">
         ➡
