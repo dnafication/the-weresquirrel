@@ -1,3 +1,7 @@
+function round(value, decimals) {
+  return Number(Math.round(value + "e" + decimals) + "e-" + decimals)
+}
+
 // create the table for a specific event
 // from the events
 function tableFor(event, journal) {
@@ -33,4 +37,13 @@ function phi([n00, n01, n10, n11]) {
   )
 }
 
-export { tableFor, journalEvents, phi }
+// taken from stack overflow 😂
+function uuidv4() {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
+    var r = (Math.random() * 16) | 0,
+      v = c === "x" ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
+}
+
+export { tableFor, journalEvents, phi, uuidv4, round }
