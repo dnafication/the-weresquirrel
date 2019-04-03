@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `Jacques' journal`,
-    description: `The journal of `,
+    description: `The journal of Jacques, the weresquirrel`,
     author: `@dnafication`,
   },
   plugins: [
